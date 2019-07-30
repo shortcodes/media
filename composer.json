@@ -1,0 +1,21 @@
+{
+  "name": "shortcodes/media",
+  "description": "Package to organise media files and it's customization",
+  "license": "mit",
+  "authors": [
+    {
+      "name": "Roman Szymanski",
+      "email": "roman.szymanski@shortcodes.pl"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "php": ">=7.0.0",
+    "spatie/laravel-medialibrary": "^7.0.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Shortcodes\\Media\\": "src/"
+    }
+  }
+}
