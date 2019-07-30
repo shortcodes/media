@@ -39,10 +39,12 @@ class MediaTransform extends Command
         $model::chunk(100, function ($objects) use ($fields) {
             foreach ($objects as $object) {
                 foreach ($fields as $field) {
-                    $storageFile = storage_path('app/' . $object->$field);
-                    $object->addMedia($storageFile)->toMediaCollection($field);
+                    if ($object->$field) {
+                        $storageFile = storage_path('app/' . $object->$field);
+                        $object->addMedia($storageFile)->toMediaCollection($field);
+                    }
                 }
-                $this->info('Object ID '.$object->id.' done.');
+                $this->info('Object ID ' . $object->id . ' done.');
             }
         });
 
