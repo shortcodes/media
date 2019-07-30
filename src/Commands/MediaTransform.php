@@ -3,6 +3,7 @@
 namespace Shortcodes\Media\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class MediaTransform extends Command
@@ -30,24 +31,41 @@ class MediaTransform extends Command
 
         $modelObject = new $model();
 
+        $this->line('Start transforming ' . $model);
+
         foreach ($fields as $field) {
             if (!Schema::hasColumn($modelObject->getTable(), $field)) {
                 $this->error('Column ' . $field . ' does not exists.');
             }
         }
 
-        $model::chunk(100, function ($objects) use ($fields) {
-            foreach ($objects as $object) {
-                foreach ($fields as $field) {
-                    if ($object->$field) {
-                        $storageFile = storage_path('app/' . $object->$field);
-                        $object->addMedia($storageFile)->toMediaCollection($field);
-                    }
-                }
-                $this->info('Object ID ' . $object->id . ' done.');
-            }
-        });
+        try {
 
-        $this->info('All done.');
+            DB::beginTransaction();
+
+            $model::chunk(100, function ($objects) use ($fields) {
+                foreach ($objects as $object) {
+                    foreach ($fields as $field) {
+                        if ($object->$field) {
+                            $storageFile = storage_path('app/' . $object->$field);
+                            if (file_exists($storageFile)) {
+                                $object->addMedia($storageFile)
+                                    ->preservingOriginal()
+                                    ->toMediaCollection($field);
+                            }
+                        }
+                    }
+                    $this->info('Object ID ' . $object->id . ' done.');
+                }
+            });
+
+            DB::commit();
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+
+        $this->line('Finished transforming ' . $model);
     }
 }
