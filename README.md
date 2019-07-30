@@ -2,7 +2,7 @@
 
 Package to organise media files and it's customization
 
-#Install
+# Install
 
     composer require shortcodes/media
     
