@@ -13,5 +13,12 @@ trait Mediable
     {
         static::observe(MediableObserver::class);
     }
+
+    public function getFirstMediaUrlOrNull(string $collectionName = 'default', string $conversionName = '')
+    {
+        $return = $this->getFirstMediaUrl($collectionName, $conversionName);
+
+        return $return ? $return : null;
+    }
 }
 
