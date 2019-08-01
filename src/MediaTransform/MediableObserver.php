@@ -16,8 +16,11 @@ class MediableObserver
 
             $attributes = request()->all();
 
-            if (isset($attributes[$mediaCollection->name]) && $attributes[$mediaCollection->name]) {
-                $storageFile = storage_path('app/' . $attributes[$mediaCollection->name]);
+            if (isset($attributes[$mediaCollection->name]) && $attributes[$mediaCollection->name] && strpos($attributes[$mediaCollection->name], '/tmp/') !== false) {
+
+                $filePath = ltrim(strstr($attributes[$mediaCollection->name], '/tmp/'),'/');
+
+                $storageFile = storage_path('app/' . $filePath);
 
                 $model->addMedia($storageFile)->toMediaCollection($mediaCollection->name);
             }
