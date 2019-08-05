@@ -18,7 +18,6 @@ class ProductsMediaTransform extends Command
 
         try {
 
-            DB::beginTransaction();
 
             $productModel::chunk(100, function ($objects) {
                 foreach ($objects as $object) {
@@ -38,10 +37,8 @@ class ProductsMediaTransform extends Command
                 }
             });
 
-            DB::commit();
 
         } catch (\Exception $e) {
-            DB::rollBack();
             throw $e;
         }
 
@@ -69,10 +66,8 @@ class ProductsMediaTransform extends Command
 
             $this->info('Done all folders');
 
-            DB::commit();
 
         } catch (\Exception $e) {
-            DB::rollBack();
             throw $e;
         }
     }
