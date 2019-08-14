@@ -38,6 +38,8 @@ trait Mediable
 
                 $this->addMedia($storageFile)->toMediaCollection($key);
             }
+
+            return;
         }
 
         return parent::setAttribute($key, $value);
