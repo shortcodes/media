@@ -57,8 +57,13 @@ trait Mediable
                     $storageFile = storage_path('app/' . $filePath);
 
                     $media = $this->addMedia($storageFile);
+
                     if ($this->isVideo($storageFile)) {
                         $media->withCustomProperties(['isVideo' => true]);
+                    }
+
+                    if (isset($item['title'])) {
+                        $media->usingName($item['title']);
                     }
 
                     $media->toMediaCollection($key);
