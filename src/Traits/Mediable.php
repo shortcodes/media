@@ -38,7 +38,10 @@ trait Mediable
             $items = [];
 
             if (!in_array($key, $mediaMultipleCollections)) {
-                $items[] = ['url' => $value];
+                $items[] = [
+                    'url' => $value,
+                    'title' => request()->get($key . '_title')
+                ];
             }
 
             if (!in_array($key, $mediaMultipleCollections) && $value === null && $this->getFirstMedia($key)) {
