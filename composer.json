@@ -13,6 +13,13 @@
     "php": ">=7.0.0",
     "spatie/laravel-medialibrary": "^7.0.0"
   },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Shortcodes\\Media\\MediaPackageProvider"
+      ]
+    }
+  },
   "autoload": {
     "psr-4": {
       "Shortcodes\\Media\\": "src/"
