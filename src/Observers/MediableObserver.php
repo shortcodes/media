@@ -94,6 +94,8 @@ class MediableObserver
             $item->move($model);
         }
 
+        Media::setNewOrder($ids);
+
     }
 
     private function handleDeleteMultipleMedia(Model $model, $ids)
