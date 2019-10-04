@@ -27,7 +27,8 @@ You can define if collection is singular (add `singleFile()` method) or multiple
 To be able to upload media files you have to set media routes. You can do that by placing `Route::mediaRoutes();
 ` in your routes file.
 
-Then you will be able to use it under `POST /media` in basic namespace
+Then you will be able to use it under `POST /media` in basic namespace while providing `file` field
+
 
 In response you will get:
 
@@ -68,6 +69,8 @@ In `my-other-collection` property collection you need to provide array of media 
 
 > REMEMBER! While updating model object collection not set to single all skipped media id in array will be deleted. 
 
+In this case images are automatically reordered by provided `ids`.
+
 ### Attaching multiple files to model without removing actual
 
 In case you need to add media file without removing all missing in array you can use `add` key in collection data request
@@ -88,6 +91,13 @@ In case you need to remove selected media from object you can use `delete` key i
             'delete' => [3, 4]
         ]
     ]);
+
+### Attaching file while uploading
+
+You may also attach file directly to demanded models providing proper fields in request `model_type`,`model_id`,`model_collection`. 
+
+The `model_collection` field is optional. Remember that `model_type` must use trait `Mediable`
+
 
 ### Additional features
 

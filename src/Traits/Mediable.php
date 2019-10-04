@@ -28,5 +28,16 @@ trait Mediable
     {
         static::observe(MediableObserver::class);
     }
+
+    public static function isVideoMime($mimeType)
+    {
+        $videoMimes = config('medialibrary.video_mimetypes');
+
+        if (!$videoMimes) {
+            return false;
+        }
+
+        return in_array($mimeType, $videoMimes);
+    }
 }
 
