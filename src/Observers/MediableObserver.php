@@ -46,10 +46,10 @@ class MediableObserver
             foreach ($model->mediaCollections as $mediaCollection) {
 
                 if ($mediaCollection->name === $mediable && $mediaCollection->singleFile) {
-                    $this->handleSingleMedia($model, $value);
+                    $this->handleSingleMedia($model, $value, $mediable);
                     break;
                 } elseif ($mediaCollection->name === $mediable && !$mediaCollection->singleFile) {
-                    $this->handleMultipleMedia($model, $value);
+                    $this->handleMultipleMedia($model, $value, $mediable);
                     break;
                 }
 
@@ -57,17 +57,17 @@ class MediableObserver
         }
     }
 
-    private function handleSingleMedia(Model $model, $id)
+    private function handleSingleMedia(Model $model, $id, $collection)
     {
         $media = Media::where('model_type', '!=', MediaLibrary::class)->where('id', $id)->first();
 
         if ($media) {
-            $media->move($model);
+            $media->move($model, $collection);
         }
 
     }
 
-    private function handleMultipleMedia(Model $model, $ids)
+    private function handleMultipleMedia(Model $model, $ids, $collection)
     {
         if (!is_array($ids)) {
             abort(404);
@@ -79,7 +79,7 @@ class MediableObserver
         }
 
         if (isset($ids['add'])) {
-            $this->handleAddMultipleMedia($model, $ids['add']);
+            $this->handleAddMultipleMedia($model, $ids['add'], $collection);
             return;
         }
 
@@ -91,7 +91,7 @@ class MediableObserver
         $media = Media::where('model_type', MediaLibrary::class)->whereIn('id', $ids);
 
         foreach ($media->get() as $item) {
-            $item->move($model);
+            $item->move($model, $collection);
         }
 
         Media::setNewOrder($ids);
@@ -106,14 +106,14 @@ class MediableObserver
             ->delete();
     }
 
-    private function handleAddMultipleMedia(Model $model, $ids)
+    private function handleAddMultipleMedia(Model $model, $ids, $collection)
     {
         foreach ($ids as $id) {
 
-            $media = Media::where('model_type', MediaLibrary::class)->where('id', $id)->first();
+            $media = Media::where('id', $id)->first();
 
             if ($media) {
-                $media->move($model);
+                $media->move($model, $collection);
             }
         }
     }
