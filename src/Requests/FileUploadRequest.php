@@ -27,12 +27,12 @@ class FileUploadRequest extends FormRequest
 
             $model = $this->get('model_type');
 
-            if (!in_array(Mediable::class, class_uses($model))) {
+            if ($model && !in_array(Mediable::class, class_uses($model))) {
                 $validator->errors()->add('model_type', trans('messages.model_type_must_use_trait_mediable'));
                 return;
             }
 
-            if (!$model::find($this->get('model_id'))) {
+            if ($model && !$model::find($this->get('model_id'))) {
                 $validator->errors()->add('model_id', trans('messages.object_of_provided_id_does_not_exists'));
             }
         });
