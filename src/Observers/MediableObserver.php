@@ -59,7 +59,7 @@ class MediableObserver
 
     private function handleSingleMedia(Model $model, $id, $collection)
     {
-        $media = Media::where('model_type', '!=', MediaLibrary::class)->where('id', $id)->first();
+        $media = Media::where('model_type', MediaLibrary::class)->where('id', $id)->first();
 
         if ($media) {
             $media->move($model, $collection);
