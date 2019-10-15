@@ -91,7 +91,12 @@ class MediableObserver
         $media = Media::where('model_type', MediaLibrary::class)->whereIn('id', $ids);
 
         foreach ($media->get() as $item) {
-            $item->move($model, $collection);
+
+            $newMedia = $item->move($model, $collection);
+
+            if (($key = array_search($item->id, $ids)) !== false) {
+                $ids[$key] = $newMedia->id;
+            }
         }
 
         Media::setNewOrder($ids);
