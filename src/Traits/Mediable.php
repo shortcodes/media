@@ -39,5 +39,12 @@ trait Mediable
 
         return in_array($mimeType, $videoMimes);
     }
+
+    public function getFirstMediaUrlOrNull(string $collectionName = 'default', string $conversionName = '')
+    {
+        $return = $this->getFirstMediaUrl($collectionName, $conversionName);
+
+        return $return ? $return : null;
+    }
 }
 
