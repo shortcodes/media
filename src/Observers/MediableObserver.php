@@ -52,13 +52,17 @@ class MediableObserver
                     $this->handleMultipleMedia($model, $value, $mediable);
                     break;
                 }
-
             }
         }
     }
 
     private function handleSingleMedia(Model $model, $id, $collection)
     {
+        if (!$id) {
+            $model->getFirstMedia($collection)->delete();
+            return;
+        }
+
         $media = Media::where('model_type', MediaLibrary::class)->where('id', $id)->first();
 
         if ($media) {
