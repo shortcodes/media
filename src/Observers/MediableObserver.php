@@ -59,7 +59,7 @@ class MediableObserver
     private function handleSingleMedia(Model $model, $id, $collection)
     {
         if (!$id) {
-            $model->getFirstMedia($collection)->delete();
+            optional($model->getFirstMedia($collection))->delete();
             return;
         }
 
