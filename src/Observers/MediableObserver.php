@@ -89,6 +89,7 @@ class MediableObserver
 
         Media::where('model_type', get_class($model))
             ->where('model_id', $model->id)
+            ->where('collection_name', $collection)
             ->whereNotIn('id', $ids)
             ->delete();
 
