@@ -15,7 +15,8 @@ class FileUploadRequest extends FormRequest
     public function rules()
     {
         return [
-            'file' => 'required|file',
+            'url' => 'required_without:file|url|active_url',
+            'file' => 'required_without:url|file',
             'model_type' => 'string',
             'model_id' => 'required_with:model_type',
         ];

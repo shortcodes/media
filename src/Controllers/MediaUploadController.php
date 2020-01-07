@@ -15,12 +15,18 @@ class MediaUploadController extends Controller
 
             $model = $modelType::find($request->get('model_id'));
 
-            $media = $model->addMedia($request->file('file'))->toMediaCollection($request->get('model_collection', 'default'));
+            $mediaAsset = $request->get('url') ? $model->addMediaFromUrl($request->get('url')) : $model->addMedia($request->file('file'));
+
+            $media = $mediaAsset->toMediaCollection($request->get('model_collection', 'default'));
+
             return new MediaLibraryResource($media);
         }
 
         $mediaLibrary = new MediaLibrary();
-        $media = $mediaLibrary->addMedia($request->file('file'))->toMediaCollection();
+
+        $mediaAsset = $request->get('url') ? $mediaLibrary->addMediaFromUrl($request->get('url')) : $mediaLibrary->addMedia($request->file('file'));
+
+        $media = $mediaAsset->toMediaCollection();
 
         return new MediaLibraryResource($media);
 
