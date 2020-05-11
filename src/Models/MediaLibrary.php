@@ -13,6 +13,8 @@ class MediaLibrary extends Model implements HasMedia
 
     public $exists = true;
 
+    protected $table = 'media';
+
 
 
 }
