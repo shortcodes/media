@@ -98,6 +98,29 @@ You may also attach file directly to demanded models providing proper fields in 
 
 The `model_collection` field is optional. Remember that `model_type` must use trait `Mediable`
 
+### Attach manipulations to uploaded image
+
+You may also add some manipulations to uploaded media.
+
+For now only available manipulation ther is is cropping.
+
+You can perform it by performing PATCH request 
+
+    PATCH /media/{mediaId}
+        
+    {
+       "manipulations": [
+           {
+               "type":"crop",
+               "x":0, 
+               "y":0,
+               "width":10,
+               "height": 500
+           }
+       ]
+    }
+
+where `x` and `y` are coordinates to starting point and `width` and `height` are dimentions of cropped rectangle.
 
 ### Additional features
 
