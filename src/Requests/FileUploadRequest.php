@@ -7,11 +7,6 @@ use Shortcodes\Media\Traits\Mediable;
 
 class FileUploadRequest extends FormRequest
 {
-    public function authorize()
-    {
-        return true;
-    }
-
     public function rules()
     {
         return [
