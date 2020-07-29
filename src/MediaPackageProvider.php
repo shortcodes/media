@@ -17,6 +17,7 @@ class MediaPackageProvider extends ServiceProvider
         Route::macro('mediaRoutes', function () {
             Route::post('/media', [MediaUploadController::class, 'store']);
             Route::patch('/media/{media}', [MediaUploadController::class, 'update']);
+            Route::get('/media/{media}', [MediaUploadController::class, 'show']);
         });
     }
 }

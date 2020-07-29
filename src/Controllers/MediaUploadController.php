@@ -20,7 +20,12 @@ class MediaUploadController extends Controller
             '*' => []
         ];
 
-        $this->middleware('auth:api')->only('update');
+        $this->middleware('auth:api')->only(['update','show']);
+    }
+
+    public function show(Media $media)
+    {
+        return new MediaLibraryResource($media);
     }
 
     public function store(FileUploadRequest $request)
