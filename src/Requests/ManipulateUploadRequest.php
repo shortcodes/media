@@ -3,6 +3,7 @@
 namespace Shortcodes\Media\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Carbon;
 use Intervention\Image\Exception\NotReadableException;
 use Spatie\Image\Image;
 
@@ -11,7 +12,7 @@ class ManipulateUploadRequest extends FormRequest
     public function rules()
     {
         $media = $this->route('media');
-        $image = Image::load($media->getPath());
+        $image = Image::load($media->getTemporaryUrl(Carbon::now()->addMinutes(1)));
 
         try {
             $width = $image->getWidth();
