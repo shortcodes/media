@@ -123,7 +123,9 @@ class MediableObserver
             $media = Media::where('id', $id)->first();
 
             if ($media) {
-                $media->move($model, $collection);
+                $newMedia = $media->move($model, $collection);
+                $newMedia->manipulations = $media->manipulations;
+                $newMedia->save();
             }
         }
     }
