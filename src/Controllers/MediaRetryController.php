@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 
 class MediaRetryController extends Controller
 {
-    public function __invoke()
+    public function show()
     {
         return optional(request()->get('model')::findOrFail(request('id'))
             ->getFirstMedia(request('collectionName')))

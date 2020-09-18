@@ -55,6 +55,10 @@ trait Mediable
             return $this->getFallbackMediaUrl($collectionName, $conversionName) ?: '';
         }
 
+        if (!$media) {
+            return '';
+        }
+
         return $media->getUrl($conversionName);
     }
 

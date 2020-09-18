@@ -19,7 +19,7 @@ class MediaPackageProvider extends ServiceProvider
             Route::post('/media', [MediaUploadController::class, 'store']);
             Route::patch('/media/{media}', [MediaUploadController::class, 'update']);
             Route::get('/media/{media}', [MediaUploadController::class, 'show']);
-            Route::get('/media-retry', [MediaRetryController::class, 'retry'])->name('media-retry');
+            Route::get('/media-retry', [MediaRetryController::class, 'show'])->name('media-retry');
         });
     }
 }
