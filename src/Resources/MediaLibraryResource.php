@@ -2,10 +2,10 @@
 
 namespace Shortcodes\Media\Resources;
 
-use Illuminate\Http\Resources\Json\Resource;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Shortcodes\Media\Models\MediaLibrary;
 
-class MediaLibraryResource extends Resource
+class MediaLibraryResource extends JsonResource
 {
 
     public function toArray($request)
