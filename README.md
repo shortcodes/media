@@ -1,3 +1,7 @@
+# Deprecated
+
+This package is deprecated. New and improved version of it here https://github.com/mindz-team/laravel-media
+
 # Mediable
 
 Package to organise media files and it's customization
